@@ -1,0 +1,23 @@
+.todo-item {
+  position: relative;
+  padding: 10px;
+  background-color: #ffff88;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+.todo-item:hover .delete-button {
+  visibility: visible;
+}
+
+.delete-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px
+}  
