@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
-import '../../styles/TaskInput.css';
+import React, { useState } from "react";
+import "../../styles/TaskInput.css";
+import { postTodo } from "../endpoint/endPoints";
 
-const TaskInput = ({ onAddTask }) => {
-  const [inputValue, setInputValue] = useState('');
+const TaskInput = ({ getTodoListByUser }) => {
+  const [inputValue, setInputValue] = useState("");
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && inputValue.trim()) {
-      onAddTask(inputValue.trim());
-      setInputValue('');
+    if (e.key === "Enter" && inputValue.trim()) {
+      addTodo();
+      setInputValue("");
     }
+  };
+
+  const addTodo = async () => {
+    const data = {
+      label: inputValue,
+      is_done: false,
+    };
+    await postTodo(data);
+    getTodoListByUser();
   };
 
   return (

@@ -4,21 +4,17 @@
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 5px;
-  position: relative; 
-  box-shadow:
-  0 4px 8px rgba(0, 0, 0, 0.15),
-  0 8px 16px rgba(0, 0, 0, 0.15),
-  0 12px 24px rgba(0, 0, 0, 0.15),
-  0 16px 32px rgba(0, 0, 0, 0.15),
-  0 20px 40px rgba(0, 0, 0, 0.15),
-  0 24px 48px rgba(0, 0, 0, 0.15),
-  0 28px 56px rgba(0, 0, 0, 0.15);
-  z-index: 10; 
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 8px 16px rgba(0, 0, 0, 0.15),
+    0 12px 24px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.15),
+    0 20px 40px rgba(0, 0, 0, 0.15), 0 24px 48px rgba(0, 0, 0, 0.15),
+    0 28px 56px rgba(0, 0, 0, 0.15);
+  z-index: 10;
 }
 
 .app-container::before,
 .app-container::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 5px;
   right: 0;
@@ -26,7 +22,7 @@
   left: 5px;
   background: #f9f9f9;
   border-radius: 5px;
-  z-index: -1; 
+  z-index: -1;
   box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -41,10 +37,7 @@ h1 {
   font-size: 48px;
   color: #333;
   position: relative;
-  text-shadow: 
-    1px 1px 0px #bbb, 
-    2px 2px 0px #999, 
-    3px 3px 0px #777, 
+  text-shadow: 1px 1px 0px #bbb, 2px 2px 0px #999, 3px 3px 0px #777,
     4px 4px 2px #555;
 }
 
@@ -53,4 +46,10 @@ h1 {
   padding: 10px;
   color: #333;
   font-size: 14px;
+}
+
+.clear-button {
+  color: "black";
+  border-width: 0;
+  margin-bottom: 10px;
 }

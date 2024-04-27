@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import '../../styles/ToDoItem.css';
+import React, { useState } from "react";
+import "../../styles/ToDoItem.css";
 
 const ToDoItem = ({ task, onDelete }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -10,7 +10,7 @@ const ToDoItem = ({ task, onDelete }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {task.text}
+      {task.label}
       {isHovered && (
         <button className="delete-button" onClick={onDelete}>
           🗑️

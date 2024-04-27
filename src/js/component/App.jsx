@@ -1,57 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import ToDoList from './ToDoList';
-import TaskInput from './TaskInput';
-import '../../styles/App.css';  
+import React, { useState, useEffect } from "react";
+import ToDoList from "./ToDoList";
+import TaskInput from "./TaskInput";
+import "../../styles/App.css";
+import "../../styles/ToDoList.css";
+import { deleteTodo, getList } from "../endpoint/endPoints";
 
 const App = () => {
-    const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([]);
 
-    useEffect(() => {
-      
-        fetch('https://playground.4geeks.com/todo/users/carlosluca', {
-            method: 'GET',
-            headers: { "Content-Type": "application/json" }
-        })
-        .then(response => response.json())
-        .then(data => {
-            setTasks(data || []);  
-        })
-        .catch(error => console.error('Error fetching tasks:', error));
-    }, []);
+  useEffect(() => {
+    getTodoListByUser();
+  }, []);
 
-    const syncTasks = () => {
-        
-        fetch('https://playground.4geeks.com/todo/users/carlosluca', {
-            method: 'PUT',
-            body: JSON.stringify(tasks),
-            headers: { "Content-Type": "application/json" }
-        })
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.json();
-        })
-        .then(data => console.log('Tasks synchronized:', data))
-        .catch(error => console.error('Error syncing tasks:', error));
-    };
+  const getTodoListByUser = async () => {
+    const res = await getList();
+    console.log(res);
+    setTasks(res.todos || []);
+  };
 
-    const addTask = (taskText) => {
-        const newTask = { id: Date.now(), text: taskText, done: false };
-        setTasks(prevTasks => [...prevTasks, newTask]);
-        syncTasks();
-    };
+  const deleteAllList = async () => {
+    try {
+      const deletePromises = tasks.map(async (todo) => {
+        await deleteTodo(todo.id);
+      });
 
-    const deleteTask = (taskId) => {
-        setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
-        syncTasks();
-    };
+      await Promise.all(deletePromises);
 
-    return (
-        <div className="app-container">
-            <h1>Todo List</h1>
-            <TaskInput onAddTask={addTask} />
-            <ToDoList tasks={tasks} onDeleteTask={deleteTask} />
-        </div>
-    );
+      await getTodoListByUser();
+    } catch (error) {
+      console.error("Error al eliminar los to-dos:", error);
+    }
+  };
+
+  return (
+    <div className="app-container">
+      <h1>Todo List</h1>
+      <button
+        className="clear-button"
+        onClick={() => {
+          deleteAllList();
+        }}
+      >
+        Limpiar lista 🗑️
+      </button>
+      <TaskInput getTodoListByUser={getTodoListByUser} />
+      <ToDoList tasks={tasks} getTodoListByUser={getTodoListByUser} />
+    </div>
+  );
 };
 
 export default App;
